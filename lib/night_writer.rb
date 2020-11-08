@@ -17,11 +17,6 @@ class NightWriter
     total_characters
   end
 
-  def create_lines(arg1)
-    int = (count_txt_file_character(arg1).to_f / 40).ceil
-    lines_needed = int * 3
-  end
-
   def group_by_40
     split_characters = @lines.split("")
     character_groups = split_characters.each_slice(40)
