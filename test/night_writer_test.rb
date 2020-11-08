@@ -17,4 +17,9 @@ class NightWriterTest < Minitest::Test
     assert_equal ARGV[0], @night_writer.arg1
     assert_equal ARGV[1], @night_writer.arg2
   end
+
+  def test_count_txt_file_characters
+
+    assert_equal 12, @night_writer.count_txt_file_characters(ARGV[0])
+  end
 end
