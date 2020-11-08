@@ -4,7 +4,9 @@ class NightWriter
   def initialize(arg1, arg2)
     @arg1 = arg1
     @arg2 = arg2
-    convert_to_braille(@arg1)
+    @braille_output = ""
+    @lines = File.readlines(arg1).join.gsub("\n", "")
+    braille_by_40_lines
     puts "Created '#{arg2}' containing #{count_txt_file_characters(arg1)} characters"
   end
 
@@ -15,26 +17,40 @@ class NightWriter
     total_characters
   end
 
-  def convert_to_braille(arg1)
-    lines = File.readlines(arg1).join.gsub("\n", "")
-    split_characters = lines.split("")
+  def create_lines(arg1)
+    int = (count_txt_file_character(arg1).to_f / 40).ceil
+    lines_needed = int * 3
+  end
+
+  def group_by_40
+    split_characters = @lines.split("")
+    character_groups = split_characters.each_slice(40)
+    character_groups
+  end
+
+  def braille_by_40_lines
+    self.group_by_40.each do |group|
+      convert_to_braille(group)
+    end
+    File.write('braille.txt', @braille_output)
+  end
+
+  def convert_to_braille(group)
     new_line_1 = ""
     new_line_2 = ""
     new_line_3 = ""
-    require "pry"; binding.pry
-    split_characters.each do |character|
-      new_line_1 + Translator.fetch(character).slice(0..1)
+    group.each do |character|
+      new_line_1 += TRANSLATOR.fetch(character).slice(0..1)
     end
-    new_line_1 + "\n"
-    split_characters.each do |character|
-      new_line_2 + Translator.fetch(character).slice(2..3)
+    new_line_1 += "\n"
+    group.each do |character|
+      new_line_2 += TRANSLATOR.fetch(character).slice(2..3)
     end
-    new_line_2 + "\n"
-    split_characters.each do |character|
-      new_line_3 + Translator.fetch(character).slice(4..5)
+    new_line_2 += "\n"
+    group.each do |character|
+      new_line_3 += TRANSLATOR.fetch(character).slice(4..5)
     end
-    braille_output = new_line_1 + new_line_2 + new_line_3
-    File.write('braille.txt', braille_output)
+    @braille_output += new_line_1 + new_line_2 + new_line_3
   end
 end
 
