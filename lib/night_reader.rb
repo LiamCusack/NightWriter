@@ -31,6 +31,11 @@ class NightReader
     @three_rows << bottom
   end
 
+  def row_by_character
+    @three_rows.map do |row|
+      row.scan(/../)
+    end
+  end
 end
 
 i_read_the_night = NightReader.new(ARGV[0], ARGV[1])
