@@ -50,7 +50,7 @@ class NightWriter
     group.each do |character|
       new_line_3 += TRANSLATOR.fetch(character).slice(4..5)
     end
-    @braille_output += new_line_1 + new_line_2 + new_line_3
+    @braille_output += new_line_1 + new_line_2 + new_line_3 + "\n"
   end
 end
 
