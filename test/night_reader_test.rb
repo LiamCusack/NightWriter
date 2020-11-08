@@ -18,4 +18,13 @@ class NightReaderTest < Minitest::Test
 
     assert_equal expected, @nightreader.sort_by_row(ARGV[0])
   end
+
+  def test_line_up_rows
+
+    @nightreader.sort_by_row(ARGV[0])
+
+    expected = ["000.00000..000..00.00.", "0.....0...0..0..0.0..0", "0.000.0.0...0...0....."]
+
+    assert_equal expected, @nightreader.line_up_rows
+  end
 end

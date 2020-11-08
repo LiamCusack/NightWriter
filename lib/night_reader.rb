@@ -12,6 +12,25 @@ class NightReader
   def sort_by_row(arg1)
     @rows = File.read(arg1).split("\n")
   end
+
+  def line_up_rows
+    top = ""
+    middle = ""
+    bottom = ""
+    @rows.each do |row|
+      if @rows.index(row) % 3 == 0
+        top += row
+      elsif @rows.index(row) % 3 == 1
+        middle += row
+      else @rows.index(row) % 3 == 2
+        bottom += row
+      end
+    end
+    @three_rows << top
+    @three_rows << middle
+    @three_rows << bottom
+  end
+
 end
 
 i_read_the_night = NightReader.new(ARGV[0], ARGV[1])
