@@ -1,6 +1,8 @@
 require './lib/translator.rb'
 
 class NightWriter
+  attr_reader :arg1, :arg2
+
   def initialize(arg1, arg2)
     @arg1 = arg1
     @arg2 = arg2
