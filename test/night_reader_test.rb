@@ -38,4 +38,9 @@ class NightReaderTest < Minitest::Test
 
     assert_equal expected, @nightreader.row_by_character
   end
+
+  def test_sort_by_index
+
+    assert_equal {}, @nightreader.sort_by_index
+  end
 end
