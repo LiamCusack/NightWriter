@@ -12,9 +12,7 @@ class NightWriter
 
   def count_txt_file_characters(arg1)
     lines = File.readlines(arg1)
-    text = lines.join
-    total_characters = text.length
-    total_characters
+    total_characters = lines.join.length
   end
 
   def group_by_40
