@@ -27,7 +27,7 @@ class NightWriter
     self.group_by_40.each do |group|
       convert_to_braille(group)
     end
-    File.write('braille.txt', @braille_output)
+    File.write(@arg2, @braille_output)
   end
 
   def convert_to_braille(group)

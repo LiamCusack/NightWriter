@@ -58,4 +58,9 @@ class NightReaderTest < Minitest::Test
 
     assert_equal "pumpkin pie", @nightreader.translate_to_english
   end
+
+  def test_count_txt_file_characters
+
+    assert_equal 12, @nightreader.count_txt_file_characters(arg2)
+  end
 end

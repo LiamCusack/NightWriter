@@ -10,6 +10,12 @@ class NightReader
     @scanned_rows = []
     @translation = Hash.new
     @english_output = ""
+    sort_by_row(arg1)
+    line_up_rows
+    row_by_character
+    sort_by_index
+    translate_to_english
+    puts "Created '#{arg2}' containing #{count_txt_file_characters(arg2)} characters"
   end
 
   def sort_by_row(arg1)
@@ -64,7 +70,13 @@ class NightReader
     @translation.each do |braille|
       @english_output += TRANSLATOR.key(braille[1])
     end
+    File.write(@arg2, @english_output)
     @english_output
+  end
+
+  def count_txt_file_characters(arg2)
+    lines = File.readlines(arg2)
+    total_characters = lines.join.length
   end
 end
 
