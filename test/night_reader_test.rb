@@ -40,7 +40,13 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_sort_by_index
+    @nightreader.sort_by_row(ARGV[0])
+    @nightreader.line_up_rows
+    @nightreader.row_by_character
 
-    assert_equal {}, @nightreader.sort_by_index
+    expected = {0=>"000.0.", 1=>"0...00", 2=>"00..0.", 3=>"000.0.", 4=>"0...0.", 5=>".00...", 6=>"00.00.", 7=>"......", 8=>"000.0.", 9=>".00...", 10=>"0..0.."
+}
+
+    assert_equal expected, @nightreader.sort_by_index
   end
 end

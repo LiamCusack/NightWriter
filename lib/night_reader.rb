@@ -7,6 +7,8 @@ class NightReader
     @single_line_braille = ""
     @rows = []
     @three_rows = []
+    @scanned_rows = []
+    @translation = Hash.new
   end
 
   def sort_by_row(arg1)
@@ -32,9 +34,29 @@ class NightReader
   end
 
   def row_by_character
-    @three_rows.map do |row|
-      row.scan(/../)
+    @three_rows.each do |row|
+      @scanned_rows << row.scan(/../)
     end
+    @scanned_rows
+  end
+
+  def sort_by_index
+    key = 0
+    @scanned_rows[0].each do |pair|
+      @translation[key] = pair
+      key += 1
+    end
+    key = 0
+    @scanned_rows[1].each do |pair|
+      @translation[key] += pair
+      key += 1
+    end
+    key = 0
+    @scanned_rows[2].each do |pair|
+      @translation[key] += pair
+      key += 1
+    end
+    @translation
   end
 end
 
