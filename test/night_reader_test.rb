@@ -50,5 +50,12 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_translate_to_english
+
+    @nightreader.sort_by_row(ARGV[0])
+    @nightreader.line_up_rows
+    @nightreader.row_by_character
+    @nightreader.sort_by_index
+
+    assert_equal "pumpkin pie", @nightreader.translate_to_english
   end
 end

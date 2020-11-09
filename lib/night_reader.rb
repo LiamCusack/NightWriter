@@ -9,6 +9,7 @@ class NightReader
     @three_rows = []
     @scanned_rows = []
     @translation = Hash.new
+    @english_output = ""
   end
 
   def sort_by_row(arg1)
@@ -57,6 +58,13 @@ class NightReader
       key += 1
     end
     @translation
+  end
+
+  def translate_to_english
+    @translation.each do |braille|
+      @english_output += TRANSLATOR.key(braille[1])
+    end
+    @english_output
   end
 end
 
