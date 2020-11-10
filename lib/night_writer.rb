@@ -7,7 +7,7 @@ class NightWriter
   end
 
   def format_file_text(arg1)
-    File.readlines(arg1).join.gsub("\n", "").downcase
+    File.readlines(arg1).join.gsub("\n", "").gsub(/[1234567890]/, "").downcase
   end
 
   def message(arg1, arg2)
@@ -15,7 +15,7 @@ class NightWriter
   end
 
   def count_txt_file_characters(arg1)
-    File.readlines(arg1).join.length
+    File.readlines(arg1).join.gsub("\n", "").gsub(/[1234567890]/, "").length
   end
 
   def group_by_40(arg1)
