@@ -55,4 +55,4 @@ class NightWriter
   end
 end
 
-i_am_the_night = NightWriter.new(ARGV[0], ARGV[1])
+i_am_the_night_writer = NightWriter.new(ARGV[0], ARGV[1])
