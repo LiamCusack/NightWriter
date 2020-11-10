@@ -21,7 +21,7 @@ class NightWriter
   def group_by_40(arg1)
     split_characters = format_file_text(arg1).split("")
     character_groups = split_characters.each_slice(40)
-    character_groups
+    character_groups.to_a
   end
 
   def group_of_40_to_braille(arg1, arg2)

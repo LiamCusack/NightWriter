@@ -34,5 +34,10 @@ class NightWriterTest < Minitest::Test
     assert_equal 12, @night_writer.count_txt_file_characters(ARGV[0])
   end
 
+  def test_group_by_40
 
+    expected = [["p", "u", "m", "p", "k", "i", "n", " ", "p", "i", "e"]]
+
+    assert_equal expected, @night_writer.group_by_40(ARGV[0])
+  end
 end
