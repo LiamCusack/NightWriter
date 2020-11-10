@@ -2,10 +2,6 @@ require './lib/translator.rb'
 
 class NightReader
   def initialize(arg1, arg2)
-    runner(arg1, arg2)
-  end
-
-  def runner(arg1, arg2)
     translate_to_english(arg1, arg2)
     message(arg2)
   end
@@ -19,26 +15,21 @@ class NightReader
   end
 
   def line_up_rows(arg1)
-    three_rows = []
-    top = ""
-    middle = ""
-    bottom = ""
+    three_rows = ["", "", ""]
 
     sort_by_row(arg1).each do |row|
       if sort_by_row(arg1).index(row) % 3 == 0
-        top += row
+        three_rows[0] += row
       elsif sort_by_row(arg1).index(row) % 3 == 1
-        middle += row
+        three_rows[1] += row
       else sort_by_row(arg1).index(row) % 3 == 2
-        bottom += row
+        three_rows[2] += row
       end
     end
-    three_rows << top
-    three_rows << middle
-    three_rows << bottom
+    three_rows
   end
 
-  def row_by_character(arg1)
+  def sort_rows_by_character(arg1)
     scanned_rows = []
 
     line_up_rows(arg1).each do |row|
@@ -51,8 +42,8 @@ class NightReader
     translation  = Hash.new
     key = 0
 
-    row_by_character(arg1).each do |row|
-      if row == row_by_character(arg1).first
+    sort_rows_by_character(arg1).each do |row|
+      if row == sort_rows_by_character(arg1).first
         row.each do |pair|
           translation[key] = pair
           key += 1
@@ -75,14 +66,16 @@ class NightReader
     sort_by_index(arg1).each do |braille|
       english_output += TRANSLATOR.key(braille[1])
     end
-    File.write(arg2, english_output)
-    english_output
+    write_to_txt_file(arg2, english_output)
+  end
+
+  def write_to_txt_file(arg2, english_output)
+    File.write(arg2, english_output.scan(/.{1,80}/).join("\n"))
   end
 
   def count_txt_file_characters(arg2)
-    lines = File.readlines(arg2)
-    total_characters = lines.join.length
+    File.readlines(arg2).join.length
   end
 end
+
 i_read_the_night = NightReader.new(ARGV[0], ARGV[1])
-#check if the index of each of the 3 strings is the same, if it is, add them together, then translate that through the hash.

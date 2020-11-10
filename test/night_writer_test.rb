@@ -12,17 +12,21 @@ class NightWriterTest < Minitest::Test
     assert_instance_of NightWriter, @night_writer
   end
 
-  def test_attributes
+  def test_group_of_40_to_braille
 
-    assert_equal ARGV[0], @night_writer.arg1
-    assert_equal ARGV[1], @night_writer.arg2
+    assert_equal 69, @night_writer.group_of_40_to_braille(ARGV[0], ARGV[1])
   end
 
   def test_message
 
     expected = "Created 'braille.txt' containing 12 characters"
 
-    assert_equal expected, @night_writer.message
+    assert_equal expected, @night_writer.message(ARGV[0], ARGV[1])
+  end
+
+  def test_format_file_text
+
+    assert_equal "pumpkin pie", @night_writer.format_file_text(ARGV[0])
   end
 
   def test_count_txt_file_characters

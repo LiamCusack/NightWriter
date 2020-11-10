@@ -2,11 +2,7 @@ require './lib/translator.rb'
 
 class NightWriter
   def initialize(arg1, arg2)
-    runner(arg1, arg2)
-  end
-
-  def runner(arg1, arg2)
-    braille_by_40_lines(arg1, arg2)
+    group_of_40_to_braille(arg1, arg2)
     message(arg1, arg2)
   end
 
@@ -28,33 +24,34 @@ class NightWriter
     character_groups
   end
 
-  def braille_by_40_lines(arg1, arg2)
+  def group_of_40_to_braille(arg1, arg2)
     braille_output = ""
 
     self.group_by_40(arg1).each do |group|
       braille_output << convert_to_braille(group)
     end
+    write_to_txt_file(arg2, braille_output)
+  end
+
+  def write_to_txt_file(arg2, braille_output)
     File.write(arg2, braille_output)
   end
 
   def convert_to_braille(group)
-    new_line_1 = ""
-    new_line_2 = ""
-    new_line_3 = ""
-    braille_output = ""
+    braille = ""
 
     group.each do |character|
-      new_line_1 += TRANSLATOR.fetch(character).slice(0..1)
+      braille += TRANSLATOR.fetch(character).slice(0..1)
     end
-    new_line_1 += "\n"
+    braille += "\n"
     group.each do |character|
-      new_line_2 += TRANSLATOR.fetch(character).slice(2..3)
+      braille += TRANSLATOR.fetch(character).slice(2..3)
     end
-    new_line_2 += "\n"
+    braille += "\n"
     group.each do |character|
-      new_line_3 += TRANSLATOR.fetch(character).slice(4..5)
+      braille += TRANSLATOR.fetch(character).slice(4..5)
     end
-    braille_output += new_line_1 + new_line_2 + new_line_3 + "\n"
+    braille += "\n"
   end
 end
 
