@@ -2,19 +2,18 @@ require './lib/translator.rb'
 
 class NightReader
   def initialize(arg1, arg2)
-    @arg1         = arg1
-    @arg2         = arg2
-    @rows         = []
-    runner(arg1, arg2)
-  end
-
-  def runner(arg1, arg2)
+    @arg1 = arg1
+    @arg2 = arg2
+    @rows = []
+    @three_rows = []
+    @scanned_rows = []
+    @translation = Hash.new
+    @english_output = ""
     sort_by_row(arg1)
+    line_up_rows
+    row_by_character
+    sort_by_index
     translate_to_english
-    message(arg2)
-  end
-
-  def message(arg2)
     puts "Created '#{arg2}' containing #{count_txt_file_characters(arg2)} characters"
   end
 
@@ -23,11 +22,9 @@ class NightReader
   end
 
   def line_up_rows
-    three_rows = []
     top = ""
     middle = ""
     bottom = ""
-
     @rows.each do |row|
       if @rows.index(row) % 3 == 0
         top += row
@@ -37,49 +34,45 @@ class NightReader
         bottom += row
       end
     end
-    three_rows << top
-    three_rows << middle
-    three_rows << bottom
+    @three_rows << top
+    @three_rows << middle
+    @three_rows << bottom
   end
 
   def row_by_character
-    scanned_rows = []
-
-    line_up_rows.each do |row|
-      scanned_rows << row.scan(/../)
+    @three_rows.each do |row|
+      @scanned_rows << row.scan(/../)
     end
-    scanned_rows
+    @scanned_rows
   end
 
   def sort_by_index
-    translation  = Hash.new
     key = 0
-
-    row_by_character[0].each do |pair|
-      translation[key] = pair
+    @scanned_rows[0].each do |pair|
+      binding.pry
+      @translation[key] = pair
       key += 1
     end
     key = 0
-    row_by_character[1].each do |pair|
-      translation[key] += pair
+    @scanned_rows[1].each do |pair|
+      @translation[key] += pair
       key += 1
     end
     key = 0
-    row_by_character[2].each do |pair|
-      translation[key] += pair
+    @scanned_rows[2].each do |pair|
+      @translation[key] += pair
       key += 1
     end
-    translation
+    @translation
+    binding.pry
   end
 
   def translate_to_english
-    english_output = ""
-
-    sort_by_index.each do |braille|
-      english_output += TRANSLATOR.key(braille[1])
+    @translation.each do |braille|
+      @english_output += TRANSLATOR.key(braille[1])
     end
-    File.write(@arg2, english_output)
-    english_output
+    File.write(@arg2, @english_output)
+    @english_output
   end
 
   def count_txt_file_characters(arg2)

@@ -13,6 +13,7 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_sort_by_row
+    skip
 
     expected = ["000.00000..000..00.00.", "0.....0...0..0..0.0..0", "0.000.0.0...0...0....."]
 
@@ -20,6 +21,7 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_line_up_rows
+    skip
 
     @nightreader.sort_by_row(ARGV[0])
 
@@ -29,6 +31,7 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_row_by_character
+    skip
 
     @nightreader.sort_by_row(ARGV[0])
     @nightreader.line_up_rows
@@ -50,6 +53,7 @@ class NightReaderTest < Minitest::Test
   end
 
   def test_translate_to_english
+    skip
 
     @nightreader.sort_by_row(ARGV[0])
     @nightreader.line_up_rows
@@ -61,6 +65,6 @@ class NightReaderTest < Minitest::Test
 
   def test_count_txt_file_characters
 
-    assert_equal 12, @nightreader.count_txt_file_characters(arg2)
+    assert_equal 11, @nightreader.count_txt_file_characters(ARGV[1])
   end
 end
